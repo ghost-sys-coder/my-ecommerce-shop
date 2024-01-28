@@ -108,7 +108,9 @@ const CheckoutOrders = () => {
               <p>UGX {orders[0]?.totalAmount.toLocaleString()}</p>
             </div>
             <div className="pay">
-              
+                {orders[0]?.paymentMethod === 'Cash On Delivery' && (
+                  <button type="button">Order for your Product!</button>
+              )}
             </div>
           </div>
         )}
