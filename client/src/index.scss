@@ -1,0 +1,905 @@
+// import google poppins font
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+}
+
+.shopping-cart {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+}
+
+@layer base {
+    body {
+        @apply bg-white font-poppins transition ease-in-out delay-200;
+    }
+
+    .quantity-btns {
+        @apply flex gap-2 items-center;
+
+        .quantity {
+            @apply font-bold text-theme-700;
+        }
+
+        button {
+            @apply border-2 rounded-sm border-gray-300 py-[1px] px-3 text-xl font-medium
+        }
+    }
+
+    .product-rating {
+        @apply px-3 flex items-center justify-start gap-2 pb-2;
+
+        span {
+            @apply text-sm font-poppins;
+        }
+
+        svg {
+            @apply text-yellow-600;
+        }
+    }
+
+    .payment-option-selected {
+        @apply border-[2px] border-red-400 rounded-md flex justify-start items-center gap-2 h-[40px] max-[540px]:w-full w-[250px] px-2 py-1;
+
+        .select-option {
+            @apply h-4 w-4 rounded-full border-[1px] border-gray-400;
+        }
+
+        .selected-option {
+            @apply h-4 w-4 rounded-full border-[3px] border-gray-400 bg-theme-500;
+        }
+
+        button {
+            @apply text-sm h-full w-full text-white rounded-sm;
+        }
+
+        .paypal {
+            @apply bg-indigo-600 flex gap-2 items-center justify-center;
+
+            svg {
+                @apply text-2xl;
+            }
+        }
+
+        .mtn-money {
+            @apply bg-yellow-400;
+        }
+
+        .airtel-money {
+            @apply bg-theme-500;
+        }
+
+        .cash-on-delivery {
+            @apply bg-green-600;
+        }
+    }
+
+    .products-grid {
+        @apply grid gap-5 max-sm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 my-10 max-w-[1100px] mx-auto;
+    }
+
+}
+
+.auth_container {
+    @apply py-6 px-3 h-full flex flex-col gap-10 items-center justify-center;
+
+    h1.auth-title {
+        @apply text-xl font-poppins font-semibold;
+    }
+
+    form {
+        @apply w-full shadow-lg rounded-md p-3;
+
+        .input-container {
+            @apply flex flex-col gap-2 mb-2;
+
+            label {
+                @apply font-semibold
+            }
+
+            input {
+                @apply w-full h-[35px] rounded-sm shadow-sm px-2 outline-none focus:border-2 focus:border-theme-600;
+            }
+        }
+
+        .form_btn {
+            @apply w-full py-2 px-4 bg-theme-500 text-white cursor-pointer rounded-md mt-4 flex justify-center items-center gap-2;
+        }
+
+    }
+
+    .links {
+        @apply mt-4 w-full flex justify-center items-center gap-2;
+
+        p {
+            @apply text-gray-500 font-medium;
+        }
+
+        a {
+            @apply text-theme-500 font-medium;
+        }
+    }
+}
+
+// navigation component styles
+nav.nav-container {
+    @apply max-[320px]:px-1 px-3 py-6 md:p-6 flex items-center justify-between gap-3 md:gap-10 shadow-lg fixed w-full top-0 right-0 left-0 bg-white z-20;
+
+    a.logo {
+        @apply text-xl sm:text-2xl font-bold text-theme-500
+    }
+
+    .search {
+        @apply hidden md:flex gap-1 items-center relative;
+
+        .search-input_container {
+            @apply flex-1 flex items-center gap-2 h-[35px] overflow-hidden pl-3 border-[.5px] rounded-sm;
+
+            svg {
+                @apply text-gray-600;
+            }
+
+            input {
+                @apply w-[350px] h-full outline-none border-none bg-transparent;
+            }
+            button {
+                @apply bg-theme-500 rounded-sm cursor-pointer text-white h-[35px] px-4 shadow-md;
+            }
+        }
+
+        .results-container {
+            @apply bg-white absolute top-[100%] left-0 right-0 shadow-2xl rounded-md py-4 px-2 w-full flex flex-col gap-5;
+
+            a {
+                @apply flex justify-start items-center gap-4 border-b-[2px] pb-2;
+
+                img {
+                    @apply w-[50px] h-[50px] rounded-sm object-cover;
+                }
+
+                .content {
+                    @apply flex flex-col gap-2;
+
+                    h3 {
+                        @apply font-semibold text-theme-700 text-sm;
+                    }
+
+                    p {
+                        @apply font-semibold text-theme-700 text-sm;
+                    }
+                }
+            }
+        }
+
+    }
+
+    .cart {
+        @apply flex justify-center items-center gap-1;
+
+        div.cart-counter {
+            @apply relative;
+
+            span {
+                @apply absolute -top-[8px] right-0 bg-theme-600 p-[2px] rounded-full text-white
+            }
+        }
+    }
+
+    .dropdown-menu {
+
+        svg {
+            @apply text-theme-500 font-poppins cursor-pointer hover:text-theme-600 relative text-2xl;
+        }
+
+        .auth-links {
+            @apply absolute top-[80px] w-full sm:w-[200px] right-0 shadow-2xl rounded-sm h-screen bg-white text-theme-500 py-1 flex flex-col gap-2 items-center;
+
+            a.login {
+                @apply py-1 px-3 rounded-sm text-white bg-indigo-500 w-full text-center flex items-center justify-center shadow-2xl w-[90%];
+            }
+
+            a.auth-link {
+                @apply w-full flex gap-2 items-center justify-start py-2 px-2;
+
+                svg {
+                    @apply text-gray-500 text-xl
+                }
+
+                span {
+                    @apply font-poppins text-neutral-700;
+                }
+
+                &:hover {
+                    @apply bg-gray-200;
+                }
+            }
+
+            .logout-btn {
+                @apply text-theme-500 font-semibold cursor-pointer flex gap-1 items-center justify-center;
+
+                &:hover {
+                    @apply text-white bg-theme-500 py-1 px-2 rounded-md;
+                }
+            }
+        }
+    }
+
+}
+
+// footer styles
+footer {
+    @apply grid max-[360px]:grid-cols-1 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-8 sm:gap-4 bg-theme-700 px-6 py-4;
+
+    div.container {
+        @apply flex flex-col gap-2;
+
+        h1 {
+            @apply font-poppins text-white uppercase text-sm;
+        }
+
+        a {
+            @apply pb-3 text-white text-[11px] font-poppins pl-1 hover:translate-x-2 hover:text-theme-600 w-max
+        }
+    }
+}
+
+// home page styles
+.homepage {
+    @apply py-3 px-6 min-h-screen max-w-[1400px] mx-auto;
+}
+
+// product styles
+.product-details {
+    @apply flex gap-10 max-md:flex-col py-5;
+
+    .images {
+        @apply w-full md:w-[400px];
+
+        .main-image {
+            @apply w-full h-[300px] object-cover rounded-2xl;
+
+            img {
+                @apply w-full h-full object-cover;
+            }
+        }
+
+        .flex-images {
+            @apply flex gap-2 items-center mt-5 flex-wrap;
+
+            .image {
+                @apply w-[50px] h-[50px] rounded-sm cursor-pointer object-cover;
+            }
+
+            .active-image {
+                @apply w-[50px] h-[50px] rounded-sm cursor-pointer border-2 border-theme-500;
+            }
+        }
+    }
+
+    .info--payment {
+        @apply flex-1;
+
+        .product-title {
+            @apply text-2xl font-semibold;
+        }
+
+        .product-description {
+            @apply py-2;
+
+            p {
+                @apply text-sm font-mono;
+            }
+
+            ul {
+                @apply py-2 px-6;
+
+                li {
+                    @apply text-sm font-mono list-disc;
+                }
+            }
+        }
+
+        .product-sizes {
+            @apply my-4;
+
+            .title {
+                @apply font-semibold
+            }
+
+            .sizes {
+                @apply flex gap-2 flex-wrap;
+
+                .btn {
+                    @apply py-1 px-3 rounded-sm bg-theme-500 text-white;
+                }
+
+                .active-btn {
+                    @apply py-1 px-3 rounded-sm bg-theme-600 text-white;
+                }
+            }
+        }
+
+        .product-colors {
+            @apply my-2;
+
+            .title {
+                @apply font-semibold;
+            }
+
+            .colors {
+                @apply flex gap-2 flex-wrap;
+
+                button {
+                    @apply border-2 border-teal-300 rounded-md cursor-pointer py-1 px-3 text-theme-600;
+                }
+            }
+        }
+
+        .product-rating {
+            @apply flex items-center justify-start gap-2;
+
+            span {
+                @apply text-sm font-poppins;
+            }
+
+            svg {
+                @apply text-yellow-600;
+            }
+        }
+
+        .more-info {
+            @apply py-2;
+
+            .price {
+                @apply font-bold text-sm py-4 text-theme-500;
+            }
+
+            .cart__quantity-btns {
+                .quantity-btns {
+                    @apply flex gap-2 items-center;
+
+                    .quantity {
+                        @apply font-bold text-theme-700;
+                    }
+
+                    button {
+                        @apply border-2 rounded-sm border-gray-300 py-[1px] px-3 text-xl font-medium
+                    }
+                }
+            }
+
+            .buy-btns {
+                @apply mt-4 flex gap-4 items-center flex-wrap;
+
+                .cart-btn {
+                    @apply border-[1px] border-theme-500 rounded-sm text-theme-500 font-semibold py-1 px-4 hover:bg-theme-700 hover:text-white flex w-max gap-2 items-center;
+                }
+
+                .buy-now {
+                    @apply border-[1px] border-theme-500 bg-theme-500 text-white font-semibold py-1 px-4 rounded-sm flex gap-2 items-center w-max;
+                }
+            }
+        }
+    }
+
+}
+
+.product-features {
+    @apply my-3;
+
+    .title {
+        @apply font-bold text-xl font-semibold pb-3;
+    }
+
+    div {
+        @apply flex gap-2 items-center justify-start;
+
+        span {
+            @apply font-semibold
+        }
+    }
+}
+
+
+// category products page styles
+.category-products {
+    @apply min-h-[500px] py-6 px-3 grid gap-3 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 max-w-[1200px] mx-auto;
+
+    .product {
+        @apply p-1;
+
+        .image {
+            @apply h-[200px] w-full rounded-md overflow-hidden;
+
+            img {
+                @apply w-full h-full object-cover;
+            }
+        }
+
+        .content {
+            @apply py-2 flex flex-col;
+
+            .product-title {
+                @apply font-semibold text-theme-500;
+            }
+
+            .product-rating {
+                @apply flex items-center justify-start gap-2;
+
+                span {
+                    @apply text-sm font-poppins;
+                }
+
+                svg {
+                    @apply text-yellow-600;
+                }
+            }
+
+            .price {
+                @apply font-bold text-sm py-4 text-theme-500;
+            }
+        }
+
+        button.cart {
+            @apply w-full flex gap-2 items-center justify-center py-1 px-3 rounded-md bg-teal-600 text-white mb-2;
+
+            svg {
+                @apply cursor-pointer max-sm:hidden;
+            }
+        }
+
+        button.favorites {
+            @apply w-full flex gap-2 items-center justify-center py-1 px-3 rounded-md bg-theme-500 text-white;
+
+            svg {
+                @apply cursor-pointer max-sm:hidden;
+            }
+        }
+    }
+}
+
+
+
+// Cart Modal styles
+.cart-modal {
+    @apply z-30 fixed h-full top-0 right-0 left-0 w-full flex items-center justify-center;
+
+    .container {
+        @apply fixed right-0 h-full w-[90%] md:w-[500px] bg-white py-4 px-4 shadow-2xl;
+
+        .close {
+            @apply flex items-center justify-start gap-1 mb-4 static mb-10;
+
+            svg {
+                @apply font-bold text-theme-700 cursor-pointer;
+            }
+
+            h1 {
+                @apply text-sm font-bold text-theme-700 flex items-center gap-2;
+
+                span {
+                    @apply text-sm font-poppins text-theme-500;
+                }
+            }
+        }
+
+        .cart-products {
+            @apply mt-4 flex flex-col gap-2;
+
+            .empty-cart {
+                @apply w-full flex gap-4 flex-col items-center my-10;
+
+                svg {
+                    @apply text-theme-700;
+                }
+
+                h1 {
+                    @apply text-xl font-bold text-theme-700;
+                }
+
+                a {
+                    @apply py-2 px-6 text-white bg-theme-500 rounded-lg text-xl font-mono mt-5 hover:opacity-60;
+                }
+            }
+
+            .shopping-cart {
+                @apply flex flex-col gap-4 w-full overflow-auto h-[450px] sm:h-[400px];
+
+                .cart-product {
+                    @apply flex gap-4 pl-4 relative;
+
+                    .image {
+                        @apply w-[50px] sm:h-[80px] h-[50px] sm:w-[80px] rounded-md overflow-hidden;
+
+                        img {
+                            @apply h-full w-full object-cover;
+                        }
+                    }
+
+                    .content {
+                        @apply flex flex-col gap-2;
+
+                        .title {
+                            @apply font-semibold text-sm text-theme-700
+                        }
+
+                        .price {
+                            @apply text-sm font-semibold text-theme-700;
+                        }
+                    }
+
+                    .remove-product {
+                        @apply absolute right-4 bottom-2 p-[2px] border-2 border-red-600 rounded-full;
+
+                        svg {
+                            @apply text-theme-500 cursor-pointer;
+                        }
+                    }
+                }
+            }
+
+            .total-price {
+                @apply flex items-center justify-between gap-2 py-1 px-4 font-semibold text-theme-700;
+
+                p {
+                    @apply text-xl;
+                }
+            }
+
+            .checkout-link {
+                a {
+                    @apply w-full block py-1 px-3 flex gap-2 items-center justify-center bg-theme-500 text-white rounded-md hover:opacity-85;
+                }
+            }
+        }
+    }
+}
+
+
+// checkout page styles
+.checkout-details {
+    @apply min-h-[500px] max-w-[1200px] mx-auto px-6 py-3 sm:py-6 flex gap-4 md:flex-row flex-col relative;
+
+    .buyer-details {
+        @apply flex-1 shadow-2xl rounded-md bg-white;
+
+        .checkout-form {
+            @apply py-4 px-4 sm:px-2;
+
+            h1.title {
+                @apply font-mono text-xl text-theme-700 pb-2;
+            }
+
+            .flex-inputs {
+                @apply flex gap-2 mb-3 flex-wrap;
+
+                .input-container {
+                    @apply flex-1 flex flex-col gap-1 min-w-max;
+
+                    label {
+                        @apply font-semibold text-sm text-theme-700;
+                    }
+
+                    input {
+                        @apply w-full h-[40px] outline-none border-[1px] border-indigo-300 rounded-md px-2 text-sm text-theme-700 font-semibold;
+                    }
+                }
+            }
+        }
+
+        .payment-details {
+            @apply py-2 px-2;
+
+            h2.title {
+                @apply font-semibold text-sm text-theme-700 pb-1;
+            }
+
+            p.sub-title {
+                @apply text-sm pb-2 font-medium text-theme-700;
+            }
+
+            .payment-options {
+                @apply flex flex-col gap-2 my-1;
+
+                .payment-option {
+                    @apply border-[1px] border-indigo-300 rounded-md flex justify-start items-center gap-2 h-[40px] max-[540px]:w-full w-[250px] px-2 py-1;
+
+                    .select-option {
+                        @apply h-4 w-4 rounded-full border-[1px] border-gray-400;
+                    }
+
+                    .selected-option {
+                        @apply h-4 w-4 rounded-full border-[3px] border-gray-400 bg-theme-500;
+                    }
+
+                    button {
+                        @apply text-sm h-full w-full text-white rounded-sm;
+                    }
+
+                    .paypal {
+                        @apply bg-indigo-600 flex gap-2 items-center justify-center;
+
+                        svg {
+                            @apply text-2xl;
+                        }
+                    }
+
+                    .mtn-money {
+                        @apply bg-yellow-400;
+                    }
+
+                    .airtel-money {
+                        @apply bg-theme-500;
+                    }
+
+                    .cash-on-delivery {
+                        @apply bg-green-500;
+                    }
+
+                }
+            }
+        }
+    }
+
+    // cart summary styles
+    .cart-summary {
+        @apply w-full md:w-[350px] shadow-2xl rounded-md flex flex-col gap-2 p-4 sm:p-2 h-max bg-white sticky top-0; 
+
+        .cart-product {
+            @apply flex justify-between gap-2 h-[70px];
+
+            .left {
+                @apply flex gap-2;
+                .image {
+                    @apply w-[50px] rounded-lg overflow-hidden;
+    
+                    img {
+                        @apply w-full h-full object-cover;
+                    }
+                }
+    
+                .content {
+                    @apply flex flex-col gap-1 justify-center;
+    
+                    .title {
+                        @apply font-bold text-theme-700 text-sm;
+                    }
+                    
+                    .price {
+                        @apply text-gray-500 font-semibold text-sm;
+                    }
+                }
+            }
+
+            .right {
+                @apply flex gap-1 items-center;
+
+                svg {
+                    @apply text-sm sm:text-xl font-mono text-theme-700;
+                }
+
+                span {
+                    @apply text-theme-700 text-sm;
+                }
+            }
+            
+        }
+
+        .total {
+            @apply flex justify-between items-center gap-2 my-2;
+
+            p {
+                @apply font-semibold text-gray-400;
+            }
+
+            h3 {
+                @apply font-semibold text-theme-700;
+            }
+        }
+
+        .pay-btn {
+            @apply bg-theme-500 uppercase font-semibold text-white py-1 px-3 rounded-sm cursor-pointer my-2 hover:opacity-85 text-[17px] outline-none;
+        }
+    }
+}
+
+
+// order page styles
+.orders-page {
+    @apply min-h-[500px] sm:px-6 px-4 sm:py-6 py-8 max-w-[1200px] mx-auto flex gap-5 md:flex-row flex-col relative;
+
+    .orders {
+        @apply flex-1;
+        .order-info {
+            h1.order-title {
+                @apply font-semibold text-theme-700 sm:text-xl text-[17px] pb-5
+            }
+
+            .shipping-info {
+                @apply px-2 mb-3;
+
+                h2.title {
+                    @apply font-semibold text-theme-700 text-xl pb-3;
+                }
+
+                .info {
+                    @apply flex max-[310px]:flex-col flex-row max-[310px]:gap-2 gap-4 justify-start items-center max-[310px]:items-start;
+
+                    h3 {
+                        @apply font-semibold text-theme-700;
+                    }
+
+                    p {
+                        @apply text-theme-500 font-semibold text-sm;
+                    }
+                }
+            }
+
+            .status {
+                @apply bg-theme-500 text-white h-[40px] rounded-sm px-2 flex justify-start items-center opacity-75;
+            }
+
+            .payment {
+                @apply py-4 px-2;
+
+                .title {
+                    @apply font-semibold text-theme-700
+                }
+
+                .info {
+                    @apply flex justify-start items-center gap-2;
+
+                    h3 {
+                        @apply font-semibold text-theme-700;
+                    }
+                    p {
+                        @apply text-sm font-semibold text-theme-500;
+                    }
+                }
+            }
+
+            hr {
+                @apply h-[2px] w-full bg-gray-400 mb-5;
+            }
+            .order-items {
+                @apply py-5 px-2;
+
+                .title {
+                    @apply font-semibold text-theme-700 text-xl pb-5;
+                }
+
+                .items {
+                    @apply flex flex-col gap-5;
+
+                    .item {
+                        @apply flex gap-2 justify-between items-center;
+
+                        img {
+                            @apply h-[50px] w-[50px] object-cover rounded-md;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .order-summary {
+        @apply sm:w-[400px] rounded-md py-2 border-[2px] border-gray-200 rounded-md h-max;
+
+         div.info {
+            @apply p-2 border-b-2 border-gray-300 flex gap-2 justify-between items-center;
+
+            h3 {
+                @apply font-semibold text-theme-700 text-sm;
+            }
+
+            p {
+                @apply font-semibold text-theme-700 text-sm;
+            }
+         }
+
+        .title {
+            @apply text-theme-700 font-semibold border-b-2 border-gray-300 p-2;
+        }
+
+        .pay {
+            @apply pt-2 px-2 flex flex-col gap-2;
+
+            button {
+                @apply flex gap-2 items-center justify-center w-full bg-theme-700 text-white py-3 rounded-sm cursor-pointer text-sm hover:bg-theme-600 font-bold sm:text-xl;
+
+                svg {
+                    @apply text-3xl;
+                }
+            }
+
+            .airtel {
+                @apply bg-theme-500;
+            }
+
+            .mtn {
+                @apply bg-yellow-400;
+            }
+        }
+    }
+
+    .momo-pay {
+        @apply fixed top-0 left-0 right-0 bottom-0 z-30 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100 py-4 px-6 flex items-center justify-center;
+
+        .close {
+            @apply absolute top-10 right-6 text-3xl border-[2px] border-theme-500 rounded-full p-1 cursor-pointer;
+
+            svg {
+                @apply text-theme-700;
+            }
+        }
+
+        .content {
+            @apply w-full sm:w-[600px] rounded-md shadow-2xl bg-white p-2 flex flex-col gap-2;
+
+            h1.title {
+                @apply font-semibold text-theme-700 text-xl text-center;
+            }
+
+            .amount {
+                @apply flex max-[350px]:flex-col flex-row justify-between gap-2;
+
+                h2 {
+                    @apply font-semibold text-theme-700;
+                }
+
+                p {
+                    @apply font-semibold text-theme-700;
+                }
+            }
+
+            form {
+                @apply my-2 w-full flex flex-col gap-4 sm:gap-2;
+
+                .input-container {
+                    label {
+                        @apply font-semibold text-theme-700 text-sm block pb-4;
+                    }
+    
+                    input {
+                        @apply h-[40px] w-full px-2 outline-none bg-indigo-300 text-white rounded-sm placeholder:text-white placeholder:font-semibold focus-within:bg-indigo-500
+                    }
+                }
+
+                button {
+                    @apply text-white bg-yellow-500 py-2 px-4 rounded-md cursor-pointer mt-1;
+                }
+            }
+        }
+    }
+}
