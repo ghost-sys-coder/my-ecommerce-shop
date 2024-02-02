@@ -2,9 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   FaUser,
-  FaHeart,
+  // FaHeart,
   FaRegWindowRestore,
-  FaEnvelope,
+  // FaEnvelope,
 } from "react-icons/fa";
 import { Loader2 } from "lucide-react";
 import { MdOutlineShoppingCart } from "react-icons/md";
@@ -23,13 +23,14 @@ const Navbar = () => {
     setIsUserAuthenticated,
     fetchUserProfile,
     setUserProfile,
+    isDropdownOpen,
+    setIsDropdownOpen
   } = useAuthContext();
 
   const { setCart, cartCount, setCartCount, openCartModal, setOpenCartModal, setTotalPrice } =
     useCartContext();
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     fetchUserProfile();
@@ -53,27 +54,33 @@ const Navbar = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [setIsDropdownOpen]);
 
   const authLinks = !isUserAuthenticated
     ? [
-        {
-          id: 1,
-          linkUrl: "/profile",
-          linkText: "My Account",
-          linkIcon: <FaUser />,
-        },
-        {
-          id: 2,
-          linkUrl: "/saved",
-          linkText: "Saved Items",
-          linkIcon: <FaHeart />,
-        },
+      //   {
+      //     id: 1,
+      //     linkUrl: "/profile",
+      //     linkText: "My Account",
+      //     linkIcon: <FaUser />,
+      //   },
+      //   {
+      //     id: 2,
+      //     linkUrl: "/saved",
+      //     linkText: "Saved Items",
+      //     linkIcon: <FaHeart />,
+      // },
+      {
+        id: 3,
+        linkUrl: `/checkout/orders`,
+        linkText: "My Orders",
+        linkIcon: <FaRegWindowRestore />,
+      },
       ]
     : [
         {
           id: 1,
-          linkUrl: "/profile",
+          linkUrl: "/",
           linkText: userProfile?.name,
           linkIcon: <FaUser />,
         },
@@ -83,18 +90,18 @@ const Navbar = () => {
           linkText: "My Orders",
           linkIcon: <FaRegWindowRestore />,
         },
-        {
-          id: 3,
-          linkUrl: "/inbox",
-          linkText: "Inbox",
-          linkIcon: <FaEnvelope />,
-        },
-        {
-          id: 4,
-          linkUrl: "/saved",
-          linkText: "Saved Items",
-          linkIcon: <FaHeart />,
-        },
+        // {
+        //   id: 3,
+        //   linkUrl: "/inbox",
+        //   linkText: "Inbox",
+        //   linkIcon: <FaEnvelope />,
+        // },
+        // {
+        //   id: 4,
+        //   linkUrl: "/saved",
+        //   linkText: "Saved Items",
+        //   linkIcon: <FaHeart />,
+        // },
       ];
 
   /** logout user */
@@ -119,7 +126,7 @@ const Navbar = () => {
   return (
     <nav className="nav-container">
       <Link className="logo" to={"/"}>
-        HomeMart
+        shopLocker
       </Link>
       <SearchNav />
       <div className="flex items-center justify-between gap-3 md:gap-10">

@@ -32,10 +32,10 @@ const CategorySliderSkeleton = () => {
       }}
     >
       {Array.from({ length: 5 }).map((_, index) => (
-        <SwiperSlide key={index} className="bg-gray-200 rounded-md shadow-md flex flex-col justify-center items-center gap-2 p-3">
-          <div className="bg-gray-400 w-[200px] h-[100px] shadow-md rounded-sm"></div>
-          <div className="h-5 w-full rounded-sm bg-gray-300"></div>
-          <div className="h-5 w-full rounded-sm bg-gray-300"></div>
+        <SwiperSlide key={index} className="rounded-md shadow-md flex flex-col justify-center items-center gap-2 p-3">
+          <div className="bg-gray-200 w-[200px] h-[100px] shadow-md rounded-sm"></div>
+          <div className="h-5 w-full rounded-sm bg-gray-200"></div>
+          <div className="h-5 w-full rounded-sm bg-gray-200"></div>
         </SwiperSlide>
       ))}
     </Swiper>

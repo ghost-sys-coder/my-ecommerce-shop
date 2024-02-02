@@ -1,7 +1,8 @@
 /* eslint-disable react/prop-types */
 
 
-const OrderItems = ({products}) => {
+const OrderItems = ({ products }) => {
+
   return (
       <div className="order-items">
           <h1 className="title">Order Items</h1>

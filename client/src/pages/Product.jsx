@@ -10,7 +10,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import { ProductPageSkeleton } from "../skeletons";
 import { useAuthContext } from "../context/AuthContext";
 import { useCartContext } from "../context/ShoppingCartContext";
-import { AddToCartBtn } from "../components";
+import { AddToCartBtn, ProductDetailsBox, Rating } from "../components";
 
 /** swiper css */
 import "swiper/css";
@@ -18,13 +18,13 @@ import "swiper/css/navigation";
 
 const Product = () => {
   const navigate = useNavigate();
-  const { userProfile } = useAuthContext();
+  const { userProfile, isUserAuthenticated } = useAuthContext();
   const { fetchUserCartProfile, setOpenCartModal } = useCartContext();
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
-  const [product, setProduct] = useState(undefined);
+  const [product, setProduct] = useState(null);
   const [isProductLoading, setIsProductLoading] = useState(false);
   const [mainImgUrl, setMainImgUrl] = useState(undefined);
   const [categoryId, setCategoryId] = useState(undefined);
@@ -41,6 +41,7 @@ const Product = () => {
   const { pathname } = useLocation();
   const title = pathname.split("/")[2];
   const id = pathname.split("/")[3];
+
 
   /** fetch product */
   useEffect(() => {
@@ -191,6 +192,7 @@ const Product = () => {
     });
   };
 
+
   return (
     <div className="min-h-[400px] py-6 px-6 max-w-[1200px] mx-auto relative">
       {isProductLoading ? (
@@ -283,82 +285,24 @@ const Product = () => {
             </div>
           </div>
           {product?.productDetails && (
-            <div className="product-features">
-              <h1 className="title">Product Features</h1>
-              {product?.productDetails?.brand && (
-                <div>
-                  <span>Brand:</span>
-                  <p>{product?.productDetails?.brand}</p>
-                </div>
-              )}
-              {product?.productDetails?.modelName && (
-                <div>
-                  <span>Model Name:</span>
-                  <p>{product?.productDetails?.modelName}</p>
-                </div>
-              )}
-              {product?.productDetails?.screenSize && (
-                <div>
-                  <span>Screen Size:</span>
-                  <p>{product?.productDetails?.screenSize}</p>
-                </div>
-              )}
-              {product?.productDetails?.CPUModel && (
-                <div>
-                  <span>CPU Model:</span>
-                  <p>{product?.productDetails?.CPUModel}</p>
-                </div>
-              )}
-              {product?.productDetails?.ramMemory && (
-                <div>
-                  <span>RAM Memory:</span>
-                  <p>{product?.productDetails?.ramMemory}</p>
-                </div>
-              )}
-              {product?.productDetails?.romMemory && (
-                <div>
-                  <span>ROM Memory:</span>
-                  <p>{product?.productDetails?.romMemory}</p>
-                </div>
-              )}
-              {product?.productDetails?.operatingSystem && (
-                <div>
-                  <span>Operating System:</span>
-                  <p>{product?.productDetails?.operatingSystem}</p>
-                </div>
-              )}
-              {product?.productDetails?.specialFeature && (
-                <div>
-                  <span>Special Feature:</span>
-                  <p>{product?.productDetails?.specialFeature}</p>
-                </div>
-              )}
-              {product?.productDetails?.graphicsCard && (
-                <div>
-                  <span>Graphics Card:</span>
-                  <p>{product?.productDetails?.graphicsCard}</p>
-                </div>
-              )}
-              {product?.manufacturer && (
-                <div>
-                  <span>Manufacturer</span>
-                  <p>{product?.manufacturer}</p>
-                </div>
-              )}
-              {product?.manufacturer && (
-                <div>
-                  <span>Store</span>
-                  <p>{product?.store}</p>
-                </div>
-              )}
+            <ProductDetailsBox product={product?.productDetails} />
+            )}
+            <div className="review">
+              <h1 className="title">Leave a review for the product</h1>
+              <Rating
+                  productId={id}
+                  userId={userProfile?._id}
+                userName={userProfile?.name}
+                isUserAuthenticated={isUserAuthenticated}
+                pathname={pathname}
+                />
             </div>
-          )}
         </>
       )}
       <div className="my-8">
         <h1 className="font-semibold text-xl pb-4">You may also like</h1>
         {isRelatedProductsLoading ? (
-          <div className="grid gap-2 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
+          <div className="grid gap-3 max-sm:grid-cols-2 sm:grid-cols-3 md:grid-cols-4">
             {Array.from({ length: 4 }).map((_, index) => (
               <ProductBoxSkeleton key={index} />
             ))}

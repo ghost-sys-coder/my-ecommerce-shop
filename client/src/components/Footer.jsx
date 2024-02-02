@@ -32,7 +32,7 @@ const Footer = () => {
   return (
     <footer>
       <div id="links" className="container">
-        <h1>About HomeMart</h1>
+        <h1>About shopLocker</h1>
         <Link to={"/about"}>About us</Link>
         <Link to={"/terms"}>Terms and Conditions</Link>
         <Link to={"/returns"}>Returns and Refund Policy</Link>

@@ -10,7 +10,10 @@ import {
   ResetPassword,
   CategoryProducts,
   CheckoutDetails,
-  CheckoutOrders,
+  CheckoutSingleOrder,
+  OrdersPage,
+  Success,
+  VerifyEmail,
 } from "./pages";
 
 export default function App() {
@@ -24,8 +27,11 @@ export default function App() {
         <Route path="products/:title/:id" element={<Product />} />
         <Route path="categories/:category/:id" element={<CategoryProducts />} />
         <Route path="/checkout/details" element={<CheckoutDetails />} />
-        <Route path="/checkout/orders" element={<CheckoutOrders />} />
+        <Route path="/checkout/orders/:orderId" element={<CheckoutSingleOrder />} />
+        <Route path="/checkout/orders" element={<OrdersPage />} />
       </Route>
+      <Route path="/checkout/success" element={<Success />} />
+      <Route path="/verify/email/:token" element={<VerifyEmail />} />
       <Route element={<AuthLayout />}>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />

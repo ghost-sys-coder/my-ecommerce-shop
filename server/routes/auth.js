@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { registerUser, loginUser, verifyToken, forgotPassword, verifyUserProfile, logoutUser, resetPassword } from "../controllers/auth.js";
+import { registerUser, loginUser, verifyToken, forgotPassword, verifyUserProfile, logoutUser, resetPassword, resendEmailVerificationToken } from "../controllers/auth.js";
 import { validateUserRegistrationData, validateUserLoginData } from "../middleware/validateUserData.js";
 
 const router = Router();
@@ -13,7 +13,7 @@ router.post("/register", validateUserRegistrationData, registerUser);
 /**
  * ? Verify Token
  */
-router.get("/verify/:token", verifyToken);
+router.get("/verify/email/:token", verifyToken);
 
 
 /**
@@ -40,6 +40,12 @@ router.get("/profile", verifyUserProfile);
 /**
  * ? Logout user
  */
-router.post("/logout", logoutUser)
+router.post("/logout", logoutUser);
+
+
+/**
+ * ! Resend Email Verification token
+ */
+router.post('/resend/email/token', resendEmailVerificationToken);
 
 export default router;

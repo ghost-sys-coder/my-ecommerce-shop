@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { checkUser } from "../middleware/authentication.js";
-import { createOrder, fetchUserOrders, updateOrderToPaid,  } from "../controllers/orders.js";
+import { checkOrderPurchase, createOrder, fetchSingleOrder, fetchUserOrders, updateOrderToPaid,  } from "../controllers/orders.js";
 
 
 const router = Router();
@@ -20,6 +20,18 @@ router.get("/:id", checkUser, fetchUserOrders);
  * ! Update order to paid
  */
 router.put("/:id/pay", checkUser, updateOrderToPaid);
+
+
+/**
+ * ? Fetch Single Product
+ */
+router.get("/order/:userId/:orderId", checkUser, fetchSingleOrder);
+
+
+/**
+ * ! Check whether user has already purchased this product
+ */
+router.get("/check-purchase/paid", checkUser, checkOrderPurchase);
 
 
 

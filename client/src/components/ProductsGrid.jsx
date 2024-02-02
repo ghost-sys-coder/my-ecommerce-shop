@@ -13,7 +13,6 @@ const ProductsGrid = () => {
             try {
                 const { data } = await axios.get("/products/get/all/products");
                 setProducts(data);
-                console.log({data})
             } catch (error) {
                 console.log(error)
             } finally {

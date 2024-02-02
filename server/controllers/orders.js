@@ -25,14 +25,14 @@ const fetchUserOrders = async (req, res) => {
       .populate({
         path: "products.product",
         model: "Product",
-      })
-      .exec();
+      }).sort({ createdAt: -1 }).exec();
     return res.status(200).json(orders);
   } catch (error) {
     console.log(error);
     return res.status(500).json({ error: error.message });
   }
 };
+
 
 
 /**
@@ -68,4 +68,54 @@ const updateOrderToPaid = async (req, res) => {
   }
 }
 
-export { createOrder, fetchUserOrders, updateOrderToPaid };
+
+/**
+ * ? Fetch a single order
+ */
+const fetchSingleOrder = async (req, res) => {
+  try {
+    const { userId, orderId } = req.params;
+    const checkUser = await Order.findOne({ user: userId });
+
+    if (!checkUser) {
+      return res.status(404).json({error: 'Resource not found!'})
+    }
+
+    const order = await Order.findById(orderId)
+      .populate("user")
+      .populate({
+        path: 'products.product',
+        model: "Product"
+      }).exec();
+    return res.status(200).json(order);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({error: error.message})
+  }
+}
+
+/**
+ * ! Check whether a user already bought this product
+ */
+const checkOrderPurchase = async (req, res) => {
+  try {
+    const { userId, productId } = req.query;
+
+    const order = await Order.findOne({
+      user: userId,
+      'products.product': productId,
+      status: 'Delivered'
+    });
+
+    if (order) {
+      return res.status(200).json({ hasPurchased: true });
+    } else {
+      return res.status(201).json({ hasPurchased: false });
+    }
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({error: error.message})
+  }
+}
+
+export { createOrder, fetchUserOrders, updateOrderToPaid, fetchSingleOrder, checkOrderPurchase };

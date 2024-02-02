@@ -80,24 +80,22 @@ const OrderSchema = new Schema({
         type: Date,
     },
     paymentResult: {
-        type: {
             id: {
                 type: String,
-                required: true
             },
             status: {
                 type: String,
-                required: true
             },
             updatedTime: {
                 type: String,
-                required: true
             },
             emailAddress: {
                 type: String,
-                required: true
             }
-        }
+    },
+    cashOnDelivery: {
+        type: Boolean,
+       default: false, 
     }
 }, { timestamps: true });
 

@@ -15,6 +15,7 @@ export const AuthProvider = ({ children }) => {
   const [userProfile, setUserProfile] = useState(undefined);
   const [isUserLoading, setIsUserLoading] = useState(true);
   const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const fetchUserProfile = useCallback(async () => {
     setIsUserLoading(true);
@@ -33,6 +34,8 @@ export const AuthProvider = ({ children }) => {
     fetchUserProfile();
   }, [fetchUserProfile]);
 
+
+
   return (
     <AuthContext.Provider
       value={{
@@ -43,6 +46,8 @@ export const AuthProvider = ({ children }) => {
         setIsUserLoading,
         setUserProfile,
         fetchUserProfile,
+        isDropdownOpen,
+        setIsDropdownOpen
       }}
     >
       {children}

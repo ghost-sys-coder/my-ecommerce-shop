@@ -1,8 +1,13 @@
 export const toastOptions = {
-    position: 'top-center',
+    position: 'top-right',
     duration: 4000,
-    className: 'bg-theme-600 text-white'
-}
+    style: {
+      backgroundColor: 'lightgreen',
+      padding: 10,
+      borderRadius: 10,
+      color: '#fff'
+    }
+  }
 
 export const toastErrorOptions ={
     position: 'top-right',

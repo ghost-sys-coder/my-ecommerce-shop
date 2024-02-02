@@ -23,7 +23,6 @@ export const CartProvider = ({ children }) => {
         try {
             const { data } = await axios.get(`/cart/${userProfile?._id}`);
             setCart(data)
-            // setCartCount(data.length);
         } catch (error) {
             console.log(error);
         } finally {

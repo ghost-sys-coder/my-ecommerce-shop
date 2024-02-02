@@ -39,9 +39,26 @@ body {
     }
 }
 
+.comments {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: transparent;
+    }
+}
+
 @layer base {
     body {
-        @apply bg-white font-poppins transition ease-in-out delay-200;
+        @apply bg-gray-100 font-poppins transition ease-in-out delay-200;
     }
 
     .quantity-btns {
@@ -106,6 +123,10 @@ body {
 
     .products-grid {
         @apply grid gap-5 max-sm:grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 my-10 max-w-[1100px] mx-auto;
+    }
+
+    .comments {
+        @apply h-[200px] shadow-md rounded-md p-4 mt-4 flex flex-col gap-4 overflow-y-auto;
     }
 
 }
@@ -222,7 +243,7 @@ nav.nav-container {
         }
 
         .auth-links {
-            @apply absolute top-[80px] w-full sm:w-[200px] right-0 shadow-2xl rounded-sm h-screen bg-white text-theme-500 py-1 flex flex-col gap-2 items-center;
+            @apply absolute top-[80px] w-2/3 sm:w-[200px] right-0 shadow-2xl rounded-sm h-screen bg-white text-theme-500 py-1 flex flex-col gap-2 items-center;
 
             a.login {
                 @apply py-1 px-3 rounded-sm text-white bg-indigo-500 w-full text-center flex items-center justify-center shadow-2xl w-[90%];
@@ -411,9 +432,9 @@ footer {
             }
         }
     }
-
 }
 
+//product features
 .product-features {
     @apply my-3;
 
@@ -426,6 +447,39 @@ footer {
 
         span {
             @apply font-semibold
+        }
+    }
+}
+
+//review form
+.review {
+    @apply my-4 w-full sm:w-[600px];
+
+    .title {
+        @apply text-xl font-semibold text-theme-700;
+    }
+
+    button {
+        @apply py-2 px-3 rounded-md text-white bg-theme-700 rounded-md mt-3;
+    }
+
+    form {
+        @apply my-2;
+
+        .input-container {
+            @apply flex flex-col gap-2;
+
+            label {
+                @apply font-semibold text-theme-700;
+            }
+
+            textarea {
+                @apply h-[150px] w-full rounded-md px-2 outline-none shadow-lg;
+            }
+        }
+
+        button {
+            @apply px-3 py-2 rounded-md w-full my-2 bg-theme-500 text-white cursor-pointer;
         }
     }
 }
@@ -734,8 +788,8 @@ footer {
 }
 
 
-// order page styles
-.orders-page {
+// single order page styles
+.order-page {
     @apply min-h-[500px] sm:px-6 px-4 sm:py-6 py-8 max-w-[1200px] mx-auto flex gap-5 md:flex-row flex-col relative;
 
     .orders {
@@ -765,8 +819,28 @@ footer {
                 }
             }
 
-            .status {
+            .status-order-placed {
                 @apply bg-theme-500 text-white h-[40px] rounded-sm px-2 flex justify-start items-center opacity-75;
+            }
+
+            .status-processing {
+                @apply bg-theme-700 text-white h-[40px] rounded-sm px-2 flex justify-start items-center opacity-75;
+            }
+
+            .status-shipped {
+                @apply bg-theme-600 text-white h-[40px] rounded-sm px-2 flex justify-start items-center opacity-75;
+            }
+
+            .status-delivered {
+                @apply bg-green-700 text-white h-[40px] rounded-sm px-2 flex justify-start items-center opacity-75;
+            }
+
+            .payment-pending {
+                @apply bg-red-700 text-white h-[40px] rounded-sm px-2 flex justify-start items-center opacity-75;
+            }
+
+            .payment-complete {
+                @apply bg-green-700 text-white h-[40px] rounded-sm px-2 flex justify-start items-center opacity-75;
             }
 
             .payment {
@@ -836,7 +910,7 @@ footer {
             @apply pt-2 px-2 flex flex-col gap-2;
 
             button {
-                @apply flex gap-2 items-center justify-center w-full bg-theme-700 text-white py-3 rounded-sm cursor-pointer text-sm hover:bg-theme-600 font-bold sm:text-xl;
+                @apply flex gap-2 items-center justify-center w-full bg-theme-700 text-white py-3 rounded-sm cursor-pointer text-sm hover:bg-theme-500 font-bold sm:text-xl;
 
                 svg {
                     @apply text-3xl;
@@ -903,3 +977,110 @@ footer {
         }
     }
 }
+
+// orders page styles
+.orders-page {
+    @apply min-h-[500px] px-6 py-6 max-w-[900px] mx-auto flex flex-col gap-3 justify-center;
+
+    a.container {
+        @apply flex flex-col sm:flex-row gap-2 shadow-lg rounded-md p-2 bg-gray-50;
+
+        .image {
+            @apply h-[150px] sm:w-[150px] w-full  overflow-hidden rounded-md shadow-md p-2 bg-gray-200;
+
+            img {
+                @apply w-full h-full object-cover;
+            }
+        }
+
+        .content {
+            @apply flex flex-col gap-2 items-start justify-center;
+
+            div {
+                @apply flex gap-2;
+
+                h3 {
+                    @apply font-semibold text-theme-700 max-sm:text-sm;
+                }
+
+                 p{
+                    @apply font-semibold text-theme-600 max-sm:text-sm max-[450px]:text-sm;
+                }
+
+            }
+
+            .order-status {
+                @apply flex gap-2 max-[400px]:flex-col;
+
+                h3 {
+                    @apply font-semibold text-theme-700 max-sm:text-sm;
+                }
+
+                .placed {
+                    @apply font-semibold bg-theme-500 text-white max-sm:text-sm rounded-sm py-1 px-2;
+                }
+                .processing {
+                    @apply font-semibold bg-theme-600 text-white max-sm:text-sm rounded-sm py-1 px-2;
+                }
+                .shipping {
+                    @apply font-semibold bg-theme-700 text-white max-sm:text-sm rounded-sm py-1 px-2;
+                }
+                .delivered {
+                    @apply font-semibold bg-green-700 text-white max-sm:text-sm rounded-sm py-1 px-2;
+                }
+            }
+        }
+    }
+
+}
+
+
+// success page styles
+.success {
+    @apply min-h-screen flex justify-center items-center py-6 px-6 bg-gray-100;
+
+    .success-container {
+        @apply shadow-md rounded-md p-2 flex flex-col gap-2;
+
+        .title {
+            @apply text-center text-theme-700 text-2xl font-semibold py-2;
+        }
+        .delivery {
+            @apply text-center text-theme-500 text-xl font-semibold;
+        }
+
+        .email-message {
+            @apply flex flex-col gap-1 items-center;
+
+            p {
+                @apply font-semibold text-theme-700;
+            }
+
+            button {
+                @apply mt-2 py-[6px] px-4 rounded-sm text-white bg-theme-500
+            }
+        }
+    }
+
+    a {
+        @apply text-center font-medium text-white bg-theme-700 py-[6px] px-2 rounded-sm my-3
+    }
+}
+
+// verify email page styles
+.verify-page {
+    @apply h-screen flex flex-col justify-center items-center relative gap-3;
+
+    p {
+        @apply text-sm sm:text-xl font-semibold text-theme-700;
+    }
+
+    button {
+        @apply py-2 px-4 rounded-md cursor-pointer outline-none border-none text-white bg-theme-500 hover:opacity-70 flex justify-center items-center gap-2;
+    }
+
+    .form-container {
+        @apply fixed top-0 left-0 right-0 bottom-0 flex justify-center items-center z-20 bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10;
+    }
+}
+

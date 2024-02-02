@@ -38,7 +38,7 @@ const AuthLayout = () => {
               className="h-full w-full object-cover"
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 shadow-lg rounded-lg bg-theme-500 backdrop-filter backdrop-blur-sm bg-opacity-60 flex flex-col gap-2 justify-center items-center">
-              <h1 className="text-2xl text-white font-bold">Homemart Store</h1>
+              <h1 className="text-2xl text-white font-bold">shopLocker</h1>
               <p className="text-xl font-semibold text-white">
                 You order <br /> we deliver!
               </p>

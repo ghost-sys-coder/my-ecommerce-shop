@@ -14,6 +14,8 @@ import cartRoutes from "./routes/cart.js";
 import orderRoutes from "./routes/orders.js";
 import searchRoutes from "./routes/search.js";
 import mtnPayRoutes from "./routes/mtnpay.js";
+import cashOnDeliveryPayRoutes from "./routes/cashOnDelivery.js";
+import productRatingRoutes from "./routes/rating.js";
 
 /** import auth middleware */
 import { requireAuthToken, checkUser, checkAdmin } from "./middleware/authentication.js";
@@ -48,6 +50,8 @@ app.use("/api/cart/", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use('/api/search', searchRoutes);
 app.use("/api/mtn/", mtnPayRoutes);
+app.use("/api/cash-on-delivery", cashOnDeliveryPayRoutes);
+app.use("/api/rating", productRatingRoutes);
 
 
 /** running express application */

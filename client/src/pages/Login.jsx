@@ -4,7 +4,7 @@ import { Loader2 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import queryString from "query-string";
-import { toastOptions } from "../constants";
+import { toastErrorOptions, toastOptions } from "../constants";
 
 const Login = () => {
   const location = useLocation();
@@ -38,7 +38,7 @@ const Login = () => {
         navigate(redirectTo === undefined ? '/' : redirectTo);
       }
     } catch (error) {
-      toast.error(error.response.data.error, toastOptions);
+      toast.error(error.response.data.error, toastErrorOptions);
     } finally {
       setIsLoggingIn(false);
     }
