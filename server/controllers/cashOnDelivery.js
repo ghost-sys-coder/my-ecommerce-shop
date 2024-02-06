@@ -7,7 +7,8 @@ import Order from "../models/Order.js";
 const cashOnDelivery = async (req, res) => {
     try {
         const { id } = req.params;
-        const orderCompleted = await Order.findByIdAndUpdate(id, req.body, {new: true});
+        const orderCompleted = await Order.findByIdAndUpdate(id, req.body, { new: true });
+        console.log({orderCompleted})
         return res.status(200).json(orderCompleted);
     } catch (error) {
         console.log(error);

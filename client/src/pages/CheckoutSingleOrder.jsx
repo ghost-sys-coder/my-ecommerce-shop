@@ -4,10 +4,11 @@ import axios from "axios";
 import { Loader2 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import classNames from "classnames";
+import emailjs from "@emailjs/browser";
 import { useAuthContext } from "../context/AuthContext.jsx";
 import { ShippingAddress, OrderItems, OrderStatus, PaymentStatus, PayButtons } from "../components/index.js";
 import { OrdersPageSkeleton } from "../skeletons/index.js";
-import { toastErrorOptions } from "../constants/index.js";
+import { toastErrorOptions, toastOptions } from "../constants/index.js";
 import { useCartContext } from "../context/ShoppingCartContext.jsx";
 
 const CheckoutSingleOrder = () => {
@@ -58,12 +59,20 @@ const CheckoutSingleOrder = () => {
   }, [fetchOrder]);
 
 
+  /** handle emailjs */
+  const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+  const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY)
+  }, [])
+
+
   /** finalise order by cash on delivery */
   const handleOrderByCashOnDelivery = async (event) => {
     event.preventDefault();
     setIsCompletingOrder(true);
     try {
-      const { data, status } = await axios.put(`/cash-on-delivery/${order?._id}`, {
+      const { status } = await axios.put(`/cash-on-delivery/${order?._id}`, {
         paymentResult: {
           id: order?._id,
           status: 'Payment Complete!',
@@ -74,12 +83,20 @@ const CheckoutSingleOrder = () => {
         isPaid: true,
         paidAt: Date.now(),
       });
-      console.log({ data });
-      toast.success('Order has been succesful!')
+
+      toast.success('Order has been successful!', toastOptions)
       if (status === 200) {
-        setTimeout(() => {
-          navigate("/success")
-        }, 2000);
+        // await fetchOrder();
+        
+        /** sending thank you email to customer */
+        const response = await emailjs.send(serviceId, templateId, {
+          name: userProfile?.name,
+          userEmail: userProfile?.email
+        });
+
+        if (response.status === 200) {
+          navigate("/checkout/success")
+        }
       }
     } catch (error) {
       console.log(error);

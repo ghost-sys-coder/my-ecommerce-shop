@@ -10,7 +10,7 @@ const OrderStatus = ({ status, type }) => {
             setStatusText('Your order has been placed!');
             setStatusStyle('placed');
         } else if (status === 'Processing') {
-            setStatusText('Your Order has been processed!!');
+            setStatusText('Your order has been processed!!');
             setStatusStyle('processing');
         } else if (status === 'Shipped') {
             setStatusText('Your order has been shipped!');
