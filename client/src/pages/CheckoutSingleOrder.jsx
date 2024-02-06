@@ -8,6 +8,7 @@ import { useAuthContext } from "../context/AuthContext.jsx";
 import { ShippingAddress, OrderItems, OrderStatus, PaymentStatus, PayButtons } from "../components/index.js";
 import { OrdersPageSkeleton } from "../skeletons/index.js";
 import { toastErrorOptions } from "../constants/index.js";
+import { useCartContext } from "../context/ShoppingCartContext.jsx";
 
 const CheckoutSingleOrder = () => {
   const { pathname } = useLocation();
@@ -15,9 +16,11 @@ const CheckoutSingleOrder = () => {
   const navigate = useNavigate();
   const { userProfile, fetchUserProfile, isUserLoading, isUserAuthenticated } =
     useAuthContext();
+  const { exchangeRate, isRateLoading } = useCartContext();
   const [order, setOrder] = useState(undefined);
   const [isFetchingOrders, setIsFetchingOrders] = useState(false);
   const [isCompletingOrder, setIsCompletingOrder] = useState(false);
+
 
   const orderStatus = classNames({
     'status-order-placed': order?.status === 'Order Placed',
@@ -31,11 +34,12 @@ const CheckoutSingleOrder = () => {
     'payment-complete': order?.paymentStatus === 'Complete'
   })
 
-
  
   useEffect(() => {
     fetchUserProfile();
   }, [fetchUserProfile]);
+
+
 
   /** fetch orders */
   const fetchOrder = useCallback(async () => {
@@ -143,11 +147,13 @@ const CheckoutSingleOrder = () => {
             <h1 className="title">Order Summary</h1>
             <div className="info">
               <h3>Items</h3>
-              <p>UGX {order?.totalAmount.toLocaleString()}</p>
+                {/* <p>UGX {order?.totalAmount.toLocaleString()}</p> */}
+                <p>$ {isRateLoading ? '000' : Math.ceil(order?.totalAmount * exchangeRate) + 0.99}</p>
             </div>
             <div className="info">
               <h3>Total</h3>
-              <p>UGX {order?.totalAmount.toLocaleString()}</p>
+                {/* <p>UGX {order?.totalAmount.toLocaleString()}</p> */}
+                <p>$ {isRateLoading ? '000' : Math.ceil(order?.totalAmount * exchangeRate) + 0.99}</p>
             </div>
             <div className="pay">
                 <PayButtons
@@ -155,6 +161,10 @@ const CheckoutSingleOrder = () => {
                   handleOrderByCashOnDelivery={handleOrderByCashOnDelivery}
                   paymentMethod={order?.paymentMethod}
                   orderStatus={order?.status}
+                  totalAmount={order?.totalAmount}
+                  fetchOrder={fetchOrder}
+                  orderId={orderId}
+                  order={order}
                 />
             </div>
           </div>

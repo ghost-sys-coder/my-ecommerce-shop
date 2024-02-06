@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { FaStar, FaStarHalfAlt } from "react-icons/fa";
+import { useCartContext } from "../context/ShoppingCartContext";
 
 const ProductBox = ({ product }) => {
+  const { isRateLoading, exchangeRate } = useCartContext();
+
   return (
     <Link
       to={`/products/${product?.title}/${product?._id}`}
@@ -18,10 +21,12 @@ const ProductBox = ({ product }) => {
           {product?.title.slice(0, 25)}...
         </h2>
         <p className="font-semibold text-sm text-theme-700">
-          UGX {product?.price.toLocaleString()}
+          {/* UGX {product?.price.toLocaleString()} */}
+           ${ isRateLoading ? 'Loading...' : (Math.ceil(product?.price * exchangeRate) + 0.99)}
         </p>
         <span className="line-through text-sm font-bold text-gray-400 font-semibold">
-          UGX {product?.price * 1.2}
+          {/* UGX {product?.price * 1.2} */}
+           ${ isRateLoading ? 'Loading...' : (Math.ceil(product?.price * exchangeRate * 1.2) + 0.99)}
         </span>
       </div>
       <div className="product-rating">

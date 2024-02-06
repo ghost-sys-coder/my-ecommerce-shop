@@ -15,6 +15,8 @@ export const CartProvider = ({ children }) => {
     const [isCartLoading, setIsCartLoading] = useState(true);
     const [openCartModal, setOpenCartModal] = useState(false);
     const [totalPrice, setTotalPrice] = useState(undefined);
+    const [exchangeRate, setExchangeRate] = useState(null);
+    const [isRateLoading, setIsRateLoading] = useState(false);
 
     /** fetch cart */
     const fetchUserCartProfile = useCallback(async () => {
@@ -88,7 +90,7 @@ export const CartProvider = ({ children }) => {
             setTotalPrice(total);
         }
         calculateTotalPrice();
-    }, [cart])
+    }, [cart, exchangeRate])
 
     /** recalculate total cart quantity whenever cart changes */
     useEffect(() => {
@@ -101,6 +103,24 @@ export const CartProvider = ({ children }) => {
         calulateTotalQuantity();
     }, [cart])
 
+
+    /** handle dollar exchange rate */
+    useEffect(() => {
+        const fetchExchangeRate = async () => {
+            setIsRateLoading(true);
+            try {
+                const response = await fetch('https://api.exchangerate-api.com/v4/latest/UGX');
+                const { rates } = await response.json();
+               
+                setExchangeRate(rates?.USD);
+            } catch (error) {
+                console.log(error);
+            } finally {
+                setIsRateLoading(false);
+            }
+        };
+        fetchExchangeRate();
+    }, [])
 
     return (
         <CartContext.Provider
@@ -118,7 +138,9 @@ export const CartProvider = ({ children }) => {
                 openCartModal,
                 setOpenCartModal,
                 totalPrice,
-                setTotalPrice
+                setTotalPrice,
+                exchangeRate,
+                isRateLoading
             }}
         >
             {children}

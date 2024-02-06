@@ -27,7 +27,7 @@ const Navbar = () => {
     setIsDropdownOpen
   } = useAuthContext();
 
-  const { setCart, cartCount, setCartCount, openCartModal, setOpenCartModal, setTotalPrice } =
+  const { setCart, cartCount, setCartCount, openCartModal, setOpenCartModal, setTotalPrice, isRateLoading, exchangeRate } =
     useCartContext();
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
@@ -128,7 +128,10 @@ const Navbar = () => {
       <Link className="logo" to={"/"}>
         shopLocker
       </Link>
-      <SearchNav />
+      <SearchNav
+        isRateLoading={isRateLoading}
+        exchangeRate={exchangeRate}
+      />
       <div className="flex items-center justify-between gap-3 md:gap-10">
         <button
           onClick={() => setOpenCartModal(!openCartModal)}

@@ -16,6 +16,7 @@ import searchRoutes from "./routes/search.js";
 import mtnPayRoutes from "./routes/mtnpay.js";
 import cashOnDeliveryPayRoutes from "./routes/cashOnDelivery.js";
 import productRatingRoutes from "./routes/rating.js";
+import paypalRoutes from "./routes/paypal.js";
 
 /** import auth middleware */
 import { requireAuthToken, checkUser, checkAdmin } from "./middleware/authentication.js";
@@ -52,7 +53,12 @@ app.use('/api/search', searchRoutes);
 app.use("/api/mtn/", mtnPayRoutes);
 app.use("/api/cash-on-delivery", cashOnDeliveryPayRoutes);
 app.use("/api/rating", productRatingRoutes);
+app.use("/api/paypal", paypalRoutes);
 
+/** send paypal client id to the frontend */
+app.get('/api/config/paypal', (req, res) => {
+    res.send({clientId: process.env.PAYPAL_CLIENT_ID})
+})
 
 /** running express application */
 app.listen(port, async () => {

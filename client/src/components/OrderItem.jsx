@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { PaymentStatus, OrderStatus } from "../components";
-// import { OrderStatus } from "../components/more";
+import { useCartContext } from "../context/ShoppingCartContext";
 
 const OrderItem = ({
   id,
@@ -12,6 +12,9 @@ const OrderItem = ({
   status,
 }) => {
 
+  const { exchangeRate, isRateLoading } = useCartContext();
+
+
   return (
     <Link className="container" key={id} to={`/checkout/orders/${id}`}>
       <div className="image">
@@ -20,7 +23,7 @@ const OrderItem = ({
       <div className="content">
         <div>
           <h3>Total Amount:</h3>
-          <p>UGX{totalAmount}</p>
+          <p>$ {isRateLoading ? '0000' : Math.ceil(totalAmount * exchangeRate) + 0.99}</p>
         </div>
         <div>
           <h3>Payment Method:</h3>

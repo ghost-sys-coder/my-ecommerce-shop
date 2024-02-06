@@ -49,7 +49,7 @@ const updateOrderToPaid = async (req, res) => {
     /** update your order */
     if (order) {
       order.isPaid = true;
-      order.paidAt = true;
+      order.paidAt = Date.now();
       order.paymentResult = {
         id: id,
         status: req.body.status,

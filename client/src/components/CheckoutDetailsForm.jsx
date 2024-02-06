@@ -137,7 +137,7 @@ const CheckoutdetailsForm = ({
               <p className="sub-title">Choose your payment provider</p>
 
               <div className="payment-options">
-                {["Cash On Delivery"].map(
+                {["Cash On Delivery", "Paypal"].map(
                   (option, index) => (
                     <div
                       key={index}

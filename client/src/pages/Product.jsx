@@ -19,7 +19,7 @@ import "swiper/css/navigation";
 const Product = () => {
   const navigate = useNavigate();
   const { userProfile, isUserAuthenticated } = useAuthContext();
-  const { fetchUserCartProfile, setOpenCartModal } = useCartContext();
+  const { fetchUserCartProfile, setOpenCartModal, isRateLoading, exchangeRate } = useCartContext();
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -269,7 +269,7 @@ const Product = () => {
                 <FaStarHalfAlt />
               </div>
               <div className="more-info">
-                <p className="price">UGX {product?.price.toLocaleString()}</p>
+                <p className="price">$ {isRateLoading ? 'loading...' : (Math.ceil(product?.price * exchangeRate) + 0.99)}</p>
                 <AddToCartBtn
                   quantity={quantity}
                   setQuantity={setQuantity}
@@ -356,7 +356,7 @@ const Product = () => {
                       <FaStarHalfAlt className="text-yellow-400" />
                     </div>
                     <p className="font-semibold">
-                      UGX {price.toLocaleString()}
+                      ${ isRateLoading ? 'loading...' : (Math.ceil(price * exchangeRate) + 0.99)}
                     </p>
                   </div>
                 </Link>

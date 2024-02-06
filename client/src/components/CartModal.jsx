@@ -17,6 +17,8 @@ const CartModal = ({ setOpenCartModal }) => {
     handleDecreaseCartItemQuantity,
     handleDeleteCart,
     totalPrice,
+    isRateLoading,
+    exchangeRate
   } = useCartContext();
 
   return (
@@ -46,7 +48,7 @@ const CartModal = ({ setOpenCartModal }) => {
                     <div className="content">
                       <h1 className="title">{item?.product?.title}</h1>
                       <p className="price">
-                        UGX {item?.product?.price.toLocaleString()}
+                        $ {Math.ceil(item?.product?.price * exchangeRate) + 0.99}
                       </p>
                       <div className="quantity-btns">
                         <button
@@ -84,7 +86,7 @@ const CartModal = ({ setOpenCartModal }) => {
                 <>
                   <div className="total-price">
                     <h2>Subtotal:</h2>
-                    <p>UGX {totalPrice?.toLocaleString()}</p>
+                    <p>$ {isRateLoading ? 'Loading...' : Math.ceil(totalPrice * exchangeRate) + 0.99}</p>
                   </div>
                   <div className="checkout-link">
                     <Link to={"/checkout/details"}>

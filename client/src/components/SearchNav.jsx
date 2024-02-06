@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect, useCallback, useRef } from "react";
 import { FaSearch } from "react-icons/fa";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 
-const SearchNav = () => {
+const SearchNav = ({isRateLoading, exchangeRate}) => {
   const searchRef = useRef();
   const [searchQuery, setSearchQuery] = useState("");
   const [isFetchingResults, setIsFetchingResults] = useState(false);
@@ -93,7 +94,7 @@ const SearchNav = () => {
                 <img src={result?.images[0]} alt="image" />
                 <div className="content">
                   <h3>{result?.title.slice(0, 50)}</h3>
-                  <p>UGX {result?.price}</p>
+                  <p>$ {isRateLoading ? 'loading...' : (Math.ceil(result?.price * exchangeRate) + 0.99)}</p>
                 </div>
               </Link>
             ))
