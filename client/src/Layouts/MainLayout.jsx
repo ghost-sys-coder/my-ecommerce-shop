@@ -6,7 +6,7 @@ const MainLayout = () => {
   const { openCartModal, setOpenCartModal } = useCartContext();
 
   return (
-    <main className="h-screen max-w-[1440px] mx-auto mt-20">
+    <main className="h-screen max-w-[1600px] mx-auto mt-20">
       {openCartModal && <CartModal setOpenCartModal={setOpenCartModal} />}
       <Navbar />
       <Outlet />
