@@ -36,7 +36,7 @@ if (process.env.NODE_ENV === "development") {
 /** application middleware configuration */
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
     methods: ['POST', 'PUT', 'DELETE', 'GET']
 }));
