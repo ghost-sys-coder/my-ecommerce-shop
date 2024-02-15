@@ -1,10 +1,12 @@
 import Order from "../models/Order.js";
+import { mongoConnect } from "../database/mongoose.js";
 
 /**
  * ! Pay with cash on delivery
  */
 
 const cashOnDelivery = async (req, res) => {
+    await mongoConnect();
     try {
         const { id } = req.params;
         const orderCompleted = await Order.findByIdAndUpdate(id, req.body, { new: true });

@@ -7,11 +7,13 @@ import {
   sendResetToken,
 } from "../middleware/sendEmailVerification.js";
 import { createToken, maxAge } from "../utils/token.js";
+import { mongoConnect } from "../database/mongoose.js";
 
 /**
  * ! Register new User
  */
 const registerUser = async (req, res) => {
+  await mongoConnect();
   const { name, email, password } = req.body;
 
   try {
@@ -36,6 +38,7 @@ const registerUser = async (req, res) => {
  * ? Verify user token
  */
 const verifyToken = async (req, res) => {
+  await mongoConnect();
   try {
     const { token } = req.params;
 
@@ -71,6 +74,7 @@ const verifyToken = async (req, res) => {
  * ! Login existing user
  */
 const loginUser = async (req, res) => {
+  await mongoConnect();
   const { email, password } = req.body;
   try {
     const user = await User.login(email, password);
@@ -116,6 +120,7 @@ const loginUser = async (req, res) => {
  * ? Forgot password
  */
 const forgotPassword = async (req, res) => {
+  await mongoConnect();
   const { email } = req.body;
   try {
     const user = await User.findOne({ email });
@@ -144,6 +149,7 @@ const forgotPassword = async (req, res) => {
  * ? Reset Password
  */
 const resetPassword = async (req, res) => {
+  await mongoConnect();
   const { token, password } = req.body;
   try {
     /** Validate reset code and expiration */
@@ -184,6 +190,7 @@ const resetPassword = async (req, res) => {
  * ! Get User Profile
  */
 const verifyUserProfile = async (req, res) => {
+  await mongoConnect();
   const { authToken } = req.cookies;
 
   if (authToken) {
@@ -207,6 +214,7 @@ const verifyUserProfile = async (req, res) => {
  * ? Logout User
  */
 const logoutUser = async (req, res) => {
+  await mongoConnect();
   res
     .cookie("authToken", "", {
       maxAge: 0,
@@ -221,6 +229,7 @@ const logoutUser = async (req, res) => {
  * ! Resend email verification token to user
  */
 const resendEmailVerificationToken = async (req, res) => {
+  await mongoConnect();
   try {
     const { email } = req.body;
 

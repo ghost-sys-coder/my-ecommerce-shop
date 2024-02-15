@@ -1,9 +1,12 @@
 import Order from "../models/Order.js";
+import { mongoConnect } from "../database/mongoose.js";
+
 
 /**
  * ! Create a user's order
  */
 const createOrder = async (req, res) => {
+  await mongoConnect();
   try {
     const order = await Order.create(req.body);
     console.log({ order });
@@ -18,6 +21,7 @@ const createOrder = async (req, res) => {
  * ? Fetch orders for a given user
  */
 const fetchUserOrders = async (req, res) => {
+  await mongoConnect();
   try {
     const { id } = req.params;
     const orders = await Order.find({ user: id })
@@ -41,6 +45,7 @@ const fetchUserOrders = async (req, res) => {
  */
 
 const updateOrderToPaid = async (req, res) => {
+  await mongoConnect();
   try {
     const { id } = req.params;
     /** check for the order */
@@ -73,6 +78,7 @@ const updateOrderToPaid = async (req, res) => {
  * ? Fetch a single order
  */
 const fetchSingleOrder = async (req, res) => {
+  await mongoConnect();
   try {
     const { userId, orderId } = req.params;
     const checkUser = await Order.findOne({ user: userId });
@@ -98,6 +104,7 @@ const fetchSingleOrder = async (req, res) => {
  * ! Check whether a user already bought this product
  */
 const checkOrderPurchase = async (req, res) => {
+  await mongoConnect();
   try {
     const { userId, productId } = req.query;
 

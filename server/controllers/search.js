@@ -1,10 +1,11 @@
 import Product from "../models/Product.js";
-
+import { mongoConnect } from "../database/mongoose.js";
 
 /**
  * ! Search Products
  */
 const searchProducts = async (req, res) => {
+    await mongoConnect();
     try {
         const query = req.query.q;
         console.log(typeof (query), query);

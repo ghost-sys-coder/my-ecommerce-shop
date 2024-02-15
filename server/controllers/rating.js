@@ -1,10 +1,13 @@
 import Rating from "../models/Rating.js";
+import { mongoConnect } from "../database/mongoose.js";
+
 
 /**
  * ! POST
  * ! Create Product Rating
  */
 const createRating = async (req, res) => {
+    await mongoConnect();
     try {
         const { userId, productId, userName, rating, comment } = req.body;
         /** check if user already rated this product */
@@ -36,6 +39,7 @@ const createRating = async (req, res) => {
  * ! Fetching single product ratings
  */
 const fetchSingleProductRating = async (req, res) => {
+    await mongoConnect()
     try {
         const { productId } = req.params;
 

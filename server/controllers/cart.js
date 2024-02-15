@@ -1,11 +1,13 @@
 import Cart from "../models/Cart.js";
 import Product from "../models/Product.js";
+import { mongoConnect } from "../database/mongoose.js";
 
 
 /**
  * ! Add product to cart
  */
 const addToCart = async (req, res) => {
+    await mongoConnect();
     try {
         const { id } = req.params;
 
@@ -49,6 +51,7 @@ const addToCart = async (req, res) => {
  * ? Fetch cart products for an individual user
  */
 const fetchCartProducts = async (req, res) => {
+    await mongoConnect();
     try {
         const { id } = req.params;
         const cart = await Cart.find({user: id}).populate("product");
@@ -63,6 +66,7 @@ const fetchCartProducts = async (req, res) => {
  * ! Update Product Cart
  */
 const updateProductCart = async (req, res) => {
+    await mongoConnect();
     try {
         const { id } = req.params;
         const updatedCart = await Cart.findByIdAndUpdate(id, req.body, { new: true });
@@ -77,6 +81,7 @@ const updateProductCart = async (req, res) => {
  * ?Delete Product Cart Item 
 */
 const deleteProductCart = async (req, res) => {
+    await mongoConnect();
     try {
         const { id, userId } = req.params;
 
@@ -94,7 +99,7 @@ const deleteProductCart = async (req, res) => {
  * ! Delete the Entire cart
  */
 const deleteAllProductsCartForUser = async (req, res) => {
-    console.log('Run Check')
+    await mongoConnect();
     try {
         const { userId, id } = req.params;
         await Cart.deleteMany({ user: userId });

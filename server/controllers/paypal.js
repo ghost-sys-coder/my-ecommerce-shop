@@ -1,10 +1,12 @@
 import Order from "../models/Order.js";
+import { mongoConnect } from "../database/mongoose.js";
 
 /**
  * ! PUT 
  * ! Update order paid to true
  */
 const updateOrderToPaid = async (req, res) => {
+    await mongoConnect()
     const { details } = req.body;
     try {
         const { id } = req.params;

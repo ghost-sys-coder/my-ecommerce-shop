@@ -1,9 +1,11 @@
 import Product from "../models/Product.js";
+import { mongoConnect } from "../database/mongoose.js";
 
 /**
  * ! Fetch Featured Products
  */
 const fetchProducts = async (req, res) => {
+    await mongoConnect();
     try {
         const products = await Product.find({isFeatured: true}).populate('category').sort({createdAt: -1}); 
         res.status(200).json(products);
@@ -18,6 +20,7 @@ const fetchProducts = async (req, res) => {
  * ? Fetch Products by categories
  */
 const fetchProductsByCategories = async (req, res) => {
+    await mongoConnect();
     try {
         const { categoryId } = req.params;
 
@@ -35,6 +38,7 @@ const fetchProductsByCategories = async (req, res) => {
  * ! fetch a single product
 */
 const fetchProduct = async (req, res) => {
+    await mongoConnect();
     const { id } = req.params;
     try {
         /** query for the product */
@@ -51,6 +55,7 @@ const fetchProduct = async (req, res) => {
  * ? Fetch All Products
  */
 const fetchAllProducts = async (req, res) => {
+    await mongoConnect();
     try {
         const products = await Product.find({});
         res.status(200).json(products);
