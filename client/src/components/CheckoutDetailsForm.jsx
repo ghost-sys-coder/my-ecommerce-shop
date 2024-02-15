@@ -137,7 +137,7 @@ const CheckoutdetailsForm = ({
               <p className="sub-title">Choose your payment provider</p>
 
               <div className="payment-options">
-                {["Cash On Delivery"].map(
+                {["Cash On Delivery", "Bank Card Or Mobile Money"].map(
                   (option, index) => (
                     <div
                       key={index}
@@ -161,7 +161,7 @@ const CheckoutdetailsForm = ({
                         className={option.toLowerCase().replace(/ /g, "-").replace(/\s/g, '')}
                         type="button"
                       >
-                        <span>{`Pay with ${option}`}</span>
+                        <span>{`${option}`}</span>
                         {option === "Paypal" && <FaCcPaypal />}
                       </button>
                     </div>

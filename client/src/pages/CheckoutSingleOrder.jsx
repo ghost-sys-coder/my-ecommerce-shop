@@ -155,6 +155,10 @@ const CheckoutSingleOrder = () => {
                   handleOrderByCashOnDelivery={handleOrderByCashOnDelivery}
                   paymentMethod={order?.paymentMethod}
                   orderStatus={order?.status}
+                  order={order}
+                  fetchOrder={fetchOrder}
+                  totalAmount={order?.totalAmount}
+                  orderId={orderId}
                 />
             </div>
           </div>

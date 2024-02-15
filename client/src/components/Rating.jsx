@@ -58,7 +58,6 @@ const Rating = ({ productId, userId, userName }) => {
         comment,
         userName
       });
-      console.log({ data });
       toast.success(data);
       if (status === 200) {
         fetchProductRatings();
@@ -75,7 +74,6 @@ const Rating = ({ productId, userId, userName }) => {
   const fetchProductRatings = useCallback(async () => {
     try {
       const { data } = await axios.get(`rating/${productId}`);
-      console.log({ data });
       setProductRatings(data);
     } catch (error) {
       console.log(error);

@@ -1,43 +1,44 @@
 /* eslint-disable react/prop-types */
-
-import { Loader2 } from "lucide-react";
+import { CashOnDeliveryBtn, BankAndMobileMoney } from "../components";
 
 const PayButtons = ({
   paymentMethod,
   handleOrderByCashOnDelivery,
   isCompletingOrder,
-  orderStatus,
+  order,
+  orderId,
+  totalAmount,
+  fetchOrder,
+  orderStatus
 }) => {
+  if (order?.isPaid) {
+    return (
+      <div className="flex justify-center items-center bg-green-600 opacity-75 py-2">
+        <p className="text-white sm:text-xl text-sm">
+          Thank you for shopping with us
+        </p>
+      </div>
+    );
+  }
 
-  return (
-    <>
-      {paymentMethod === "Cash On Delivery" &&
-        (orderStatus === "Processing" || orderStatus === "Delivered" ? (
-          <div className="flex justify-center items-center bg-theme-500 py-2">
-            <p className="text-white sm:text-xl text-sm">Thank you for shopping with us</p>
-          </div>
-        ) : (
-          <button
-            onClick={handleOrderByCashOnDelivery}
-            type="button"
-            disabled={
-              orderStatus === "Processing" || orderStatus === "Delivered"
-            }
-          >
-            {isCompletingOrder ? (
-              <>
-                <Loader2 className="animate-spin" />
-                <span>Processing your Order...</span>
-              </>
-            ) : orderStatus === "Processing" ? (
-              <span>Your order will be delivered!</span>
-            ) : (
-              <span>Complete your Order</span>
-            )}
-          </button>
-        ))}
-    </>
-  );
+  // Render different buttons based on the payment method
+  switch (paymentMethod) {
+    case "Cash On Delivery":
+      return (
+        <CashOnDeliveryBtn
+          handleOrderByCashOnDelivery={handleOrderByCashOnDelivery}
+          isCompletingOrder={isCompletingOrder}
+          order={order}
+          orderStatus={orderStatus}
+        />
+      );
+    case "Bank Card Or Mobile Money":
+      return <BankAndMobileMoney
+        order={order}
+      />;
+    default:
+      return null;
+  }
 };
 
 export default PayButtons;

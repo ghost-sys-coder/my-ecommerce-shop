@@ -1,17 +1,9 @@
 import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
-import onDelivery from "../assets/ondelivery.png";
-import payByCard from "../assets/paybycard.png";
-import airtelMoney from "../assets/airtelmoney.png";
-import mtnMoney from "../assets/mtnmoney.png";
+
 
 const Footer = () => {
-  const paymentOptions = [
-    { linkUrl: "/payment-options", linkImg: onDelivery },
-    { linkUrl: "/payment-options", linkImg: payByCard },
-    { linkUrl: "/payment-options", linkImg: airtelMoney },
-    { linkUrl: "/payment-options", linkImg: mtnMoney },
-  ];
+
   const socialLinks = [
     {
       id: 1, 
@@ -31,6 +23,11 @@ const Footer = () => {
   ]
   return (
     <footer>
+      <div id="about" className="container">
+        <h1>About Us</h1>
+        <p>Welcome to ShopLocker!</p>
+        <p>At ShopLocker, we are passionate about providing you with a delightful shopping experience. Founded with a commitment to quality and customer satisfaction. Our mission is to bring you a curated selection of high quality products that combines style, functionality and affordability!</p>
+      </div>
       <div id="links" className="container">
         <h1>About shopLocker</h1>
         <Link to={"/about"}>About us</Link>
@@ -44,20 +41,7 @@ const Footer = () => {
         <Link to={"/sneakers"}>Sneakers</Link>
         <Link to={"/clothing"}>Clothing</Link>
       </div>
-      <div id="payment-methods" className="container">
-        <h1>Payment Methods</h1>
-        <div className="flex items-center justify-start gap-6">
-          {paymentOptions.map((link, index) => (
-            <Link className="" to={index} key={index}>
-              <img
-                className="h-5 w-5 rounded-full object-cover"
-                src={link.linkImg}
-                alt="payment option"
-              />
-            </Link>
-          ))}
-        </div>
-      </div>
+      
       <div id="social-links" className="container">
         <h1>Follow us</h1>
         <div className="flex items-center justify-start gap-10">

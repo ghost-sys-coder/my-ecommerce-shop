@@ -22,7 +22,6 @@ const Login = () => {
 
   /** check if the login route has a redirect */
   const { redirectTo } = queryString.parse(location.search);
-  console.log({redirectTo})
 
   /** login user */
   const handleLogin = async (e) => {

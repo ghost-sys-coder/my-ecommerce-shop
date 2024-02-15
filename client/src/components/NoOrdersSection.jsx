@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 
 const NoOrdersSection = ({ cartCount, setOpenCartModal }) => {
-  console.log({ cartCount });
+
   return (
     <div className="orders-page">
       <div className="py-2 px-3 flex flex-col justify-center items-center gap-5 w-full">

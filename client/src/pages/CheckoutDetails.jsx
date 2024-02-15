@@ -3,7 +3,6 @@ import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { Loader2, Loader } from "lucide-react";
-import emailjs from "@emailjs/browser";
 import { useCartContext } from "../context/ShoppingCartContext";
 import { useAuthContext } from "../context/AuthContext";
 import { handleCheckoutFormValidation } from "../utils/validation";
@@ -58,23 +57,6 @@ const CheckoutDetails = () => {
     }));
   };
 
-  /** handle sending thank you emails to customers with emailjs */
-  const handleCustomerMailing = async () => {
-    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    
-    try {
-      await emailjs.send(serviceId, templateId, {
-        userEmail: userProfile?.email,
-        name: userProfile?.name
-      })
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-  }, [])
 
   /** handle products array update */
   useEffect(() => {
@@ -129,14 +111,13 @@ const CheckoutDetails = () => {
         );
 
         if (status === 200) {
-          await handleCustomerMailing();
           toast.success("Your order has been placed!");
           setCart(undefined);
           setCartCount(undefined);
           setTotalPrice(undefined);
 
           setTimeout(() => {
-            navigate(`/checkout/success`);
+            navigate(`/checkout/orders/${response.data?._id}`);
           }, 2000);
         }
       }
