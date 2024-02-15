@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
+import axios from "axios";
 import {mongoConnect} from "./database/mongoose.js";
 
 
@@ -16,6 +17,7 @@ import searchRoutes from "./routes/search.js";
 import mtnPayRoutes from "./routes/mtnpay.js";
 import cashOnDeliveryPayRoutes from "./routes/cashOnDelivery.js";
 import productRatingRoutes from "./routes/rating.js";
+import pesapalPayRoutes from "./routes/pesapal.js";
 
 /** import auth middleware */
 import { requireAuthToken, checkUser, checkAdmin } from "./middleware/authentication.js";
@@ -35,7 +37,7 @@ if (process.env.NODE_ENV === "development") {
 /** application middleware configuration */
 app.use(express.json());
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: process.env.CLIENT_URL,
     credentials: true,
     methods: ['POST', 'PUT', 'DELETE', 'GET']
 }));
@@ -52,6 +54,8 @@ app.use('/api/search', searchRoutes);
 app.use("/api/mtn/", mtnPayRoutes);
 app.use("/api/cash-on-delivery", cashOnDeliveryPayRoutes);
 app.use("/api/rating", productRatingRoutes);
+app.use("/api/pesapal", pesapalPayRoutes);
+
 
 
 /** running express application */

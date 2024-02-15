@@ -60,7 +60,7 @@ const OrderSchema = new Schema({
     },
     paymentMethod: {
         type: String,
-        enum: ['Paypal', 'Cash On Delivery', 'Airtel Money', 'MTN Money'],
+        enum: ['Paypal', 'Cash On Delivery', 'Airtel Money', 'MTN Money', 'Bank Card Or Mobile Money'],
         required: true
     },
     paymentStatus: {
