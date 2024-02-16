@@ -54,6 +54,7 @@ const PayPalBtn = ({ totalAmount, handleFetchOrder, orderId, order }) => {
 
   const onError = async (err) => {
     toast.error(err.message, toastErrorOptions);
+    console.log(err.message)
   };
 
   const createOrder = async (data, actions) => {

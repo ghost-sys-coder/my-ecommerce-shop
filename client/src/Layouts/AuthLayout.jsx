@@ -27,11 +27,11 @@ const AuthLayout = () => {
       {isUserAuthenticated ? (
         <Navigate to={"/"} replace />
       ) : (
-        <main className="max-w-[1440px] mx-auto h-screen flex">
+        <main className="max-w-[1600px] mx-auto h-screen flex">
           <div className="flex-1">
             <Outlet />
           </div>
-          <div className="w-1/2 h-full hidden lg:block relative">
+          <div className="flex-1 h-full hidden lg:block relative">
             <img
               src={authImg}
               alt="image"
