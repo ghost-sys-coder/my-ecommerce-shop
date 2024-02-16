@@ -22,3 +22,5 @@ export { default as OrdersList } from "./OrdersList";
 export { default as CheckoutDetailsForm } from "./CheckoutDetailsForm";
 export { default as CartSummary } from "./CartSummary";
 export { default as EmailResetToken } from "./EmailResetToken";
+export { default as Loader } from "./Loader";
+export { default as ProductDescription } from "./ProductDescription";

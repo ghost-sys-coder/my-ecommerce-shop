@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { BsBagCheckFill } from "react-icons/bs";
-import { Loader2 } from "lucide-react";
 import { runFireworks } from "../utils/fireworks";
 import { useAuthContext } from "../context/AuthContext";
+import { Loader } from "../components";
 
 const Success = () => {
     const { isUserLoading, isUserAuthenticated, userProfile } = useAuthContext();
@@ -28,10 +28,7 @@ const Success = () => {
 
     if (isUserLoading) {
         return (
-          <main className="min-h-screen flex justify-center items-center">
-            <Loader2 size={100} className="text-theme-700 font-extrabold" />
-            <p className="text-theme-700 font-semibold">Loading...</p>
-          </main>
+          <Loader />
         );
     }
     

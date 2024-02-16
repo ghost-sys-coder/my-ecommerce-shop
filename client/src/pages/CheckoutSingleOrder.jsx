@@ -1,12 +1,11 @@
 import { useState, useEffect, useCallback } from "react";
 import { Navigate, Link, useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
 import toast, { Toaster } from "react-hot-toast";
 import classNames from "classnames";
 import emailjs from "@emailjs/browser";
 import { useAuthContext } from "../context/AuthContext.jsx";
-import { ShippingAddress, OrderItems, OrderStatus, PaymentStatus, PayButtons } from "../components/index.js";
+import { ShippingAddress, OrderItems, OrderStatus, PaymentStatus, PayButtons, Loader } from "../components/index.js";
 import { OrdersPageSkeleton } from "../skeletons/index.js";
 import { toastErrorOptions, toastOptions } from "../constants/index.js";
 import { useCartContext } from "../context/ShoppingCartContext.jsx";
@@ -108,10 +107,7 @@ const CheckoutSingleOrder = () => {
 
   if (isUserLoading) {
     return (
-      <main className="min-h-screen flex justify-center items-center">
-        <Loader2 size={100} className="text-theme-700 font-extrabold" />
-        <p className="text-theme-700 font-semibold">Loading...</p>
-      </main>
+      <Loader />
     );
   }
 

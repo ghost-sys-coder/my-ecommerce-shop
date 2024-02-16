@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { Outlet, Link, Navigate } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext";
 import authImg from "/auth-background1.png";
-import { Loader2 } from "lucide-react";
+import { Loader } from "../components";
 
 const AuthLayout = () => {
   const { isUserAuthenticated, isUserLoading, fetchUserProfile } = useAuthContext();
@@ -13,12 +13,7 @@ const AuthLayout = () => {
 
   if (isUserLoading) {
     return (
-      <main className="h-screen flex justify-center items-center gap-3">
-        <Loader2 size={100} className="text-theme-500 animate-spin" />
-        <h1 className="text-theme-500 font-poppins text-2xl">
-          Please wait, application loading...
-        </h1>
-      </main>
+      <Loader />
     );
   }
 

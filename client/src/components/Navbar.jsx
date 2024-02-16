@@ -12,6 +12,7 @@ import axios from "axios";
 import { useAuthContext } from "../context/AuthContext";
 import { useCartContext } from "../context/ShoppingCartContext";
 import SearchNav from "./SearchNav";
+import SideBarSkeleton from "../skeletons/SideBarSkeleton";
 
 const Navbar = () => {
   const dropdownRef = useRef(null);
@@ -24,11 +25,19 @@ const Navbar = () => {
     fetchUserProfile,
     setUserProfile,
     isDropdownOpen,
-    setIsDropdownOpen
+    setIsDropdownOpen,
   } = useAuthContext();
 
-  const { setCart, cartCount, setCartCount, openCartModal, setOpenCartModal, setTotalPrice, isRateLoading, exchangeRate } =
-    useCartContext();
+  const {
+    setCart,
+    cartCount,
+    setCartCount,
+    openCartModal,
+    setOpenCartModal,
+    setTotalPrice,
+    isRateLoading,
+    exchangeRate,
+  } = useCartContext();
 
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
@@ -58,24 +67,24 @@ const Navbar = () => {
 
   const authLinks = !isUserAuthenticated
     ? [
-      //   {
-      //     id: 1,
-      //     linkUrl: "/profile",
-      //     linkText: "My Account",
-      //     linkIcon: <FaUser />,
-      //   },
-      //   {
-      //     id: 2,
-      //     linkUrl: "/saved",
-      //     linkText: "Saved Items",
-      //     linkIcon: <FaHeart />,
-      // },
-      {
-        id: 3,
-        linkUrl: `/checkout/orders`,
-        linkText: "My Orders",
-        linkIcon: <FaRegWindowRestore />,
-      },
+        //   {
+        //     id: 1,
+        //     linkUrl: "/profile",
+        //     linkText: "My Account",
+        //     linkIcon: <FaUser />,
+        //   },
+        //   {
+        //     id: 2,
+        //     linkUrl: "/saved",
+        //     linkText: "Saved Items",
+        //     linkIcon: <FaHeart />,
+        // },
+        {
+          id: 3,
+          linkUrl: `/checkout/orders`,
+          linkText: "My Orders",
+          linkIcon: <FaRegWindowRestore />,
+        },
       ]
     : [
         {
@@ -114,7 +123,7 @@ const Navbar = () => {
       setIsUserAuthenticated(false);
       setCartCount(undefined);
       setCart(undefined);
-      setTotalPrice(undefined)
+      setTotalPrice(undefined);
       navigate("/login");
     } catch (error) {
       console.log(error);
@@ -128,10 +137,7 @@ const Navbar = () => {
       <Link className="logo" to={"/"}>
         shopLocker
       </Link>
-      <SearchNav
-        isRateLoading={isRateLoading}
-        exchangeRate={exchangeRate}
-      />
+      <SearchNav isRateLoading={isRateLoading} exchangeRate={exchangeRate} />
       <div className="flex items-center justify-between gap-3 md:gap-10">
         <button
           onClick={() => setOpenCartModal(!openCartModal)}
@@ -140,7 +146,11 @@ const Navbar = () => {
         >
           <div className="cart-counter">
             <MdOutlineShoppingCart size={30} />
-            {userProfile ? <span>{cartCount === undefined ? 0 : cartCount}</span> : <span>0</span>}
+            {userProfile ? (
+              <span>{cartCount === undefined ? 0 : cartCount}</span>
+            ) : (
+              <span>0</span>
+            )}
           </div>
           <p>Cart</p>
         </button>
@@ -149,10 +159,7 @@ const Navbar = () => {
           {isDropdownOpen && (
             <div className="auth-links">
               {isUserLoading ? (
-                <div className="flex gap-2 items-center justify-center">
-                  <Loader2 className="animate-spin" />
-                  <span>Loading...</span>
-                </div>
+                <SideBarSkeleton />
               ) : (
                 <>
                   {!isUserAuthenticated && (

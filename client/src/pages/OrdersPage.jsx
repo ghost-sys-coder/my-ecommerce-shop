@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
-import { Loader2 } from "lucide-react";
 import { useAuthContext } from "../context/AuthContext";
 import { useCartContext } from "../context/ShoppingCartContext";
 import { OrderComponentSkeleton } from "../skeletons";
-import { NoOrdersSection, OrdersList } from "../components";
+import { Loader, NoOrdersSection, OrdersList } from "../components";
 
 const OrdersPage = () => {
   const { pathname } = useLocation();
@@ -37,10 +36,7 @@ const OrdersPage = () => {
 
   if (isUserLoading) {
     return (
-      <main className="min-h-screen flex justify-center items-center">
-        <Loader2 size={100} className="text-theme-700 font-extrabold" />
-        <p className="text-theme-700 font-semibold">Loading, please wait...</p>
-      </main>
+      <Loader />
     );
   }
 

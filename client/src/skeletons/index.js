@@ -6,3 +6,4 @@ export { default as MiniProductSkeleton } from "./MiniProductSkeleton";
 export { default as ProductPageSkeleton } from "./ProductPageSkeleton";
 export { default as OrdersPageSkeleton } from "./OrdersPage";
 export { default as OrderComponentSkeleton } from "./OrderComponentSkeleton";
+export { default as SideBarSkeleton } from "./SideBarSkeleton";

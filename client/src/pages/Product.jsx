@@ -10,7 +10,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 import { ProductPageSkeleton } from "../skeletons";
 import { useAuthContext } from "../context/AuthContext";
 import { useCartContext } from "../context/ShoppingCartContext";
-import { AddToCartBtn, ProductDetailsBox, Rating } from "../components";
+import { AddToCartBtn, ProductDescription, ProductDetailsBox, Rating } from "../components";
 
 /** swiper css */
 import "swiper/css";
@@ -216,10 +216,7 @@ const Product = () => {
             </div>
             <div className="info--payment">
               <h1 className="product-title">{product?.title}</h1>
-              <div
-                className="product-description"
-                dangerouslySetInnerHTML={{ __html: product?.description }}
-              />
+              <ProductDescription description={product?.description} />
               {product?.sizes[0] && (
                 <div className="product-sizes">
                   <h1 className="title">Choose Your Size</h1>

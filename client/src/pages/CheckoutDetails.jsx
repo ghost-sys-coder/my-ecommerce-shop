@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
-import { Loader2, Loader } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { useCartContext } from "../context/ShoppingCartContext";
 import { useAuthContext } from "../context/AuthContext";
 import { handleCheckoutFormValidation } from "../utils/validation";
 import { toastErrorOptions } from "../constants";
 import { deleteAllProductsCartForUser } from "../apis";
-import { CartSummary, CheckoutDetailsForm } from "../components";
+import { CartSummary, CheckoutDetailsForm, Loader } from "../components";
 
 const CheckoutDetails = () => {
   const navigate = useNavigate();
@@ -56,24 +56,6 @@ const CheckoutDetails = () => {
       paymentMethod: option,
     }));
   };
-
-  /** handle sending thank you emails to customers with emailjs */
-  // const handleCustomerMailing = async () => {
-  //   const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-  //   const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-    
-  //   try {
-  //     await emailjs.send(serviceId, templateId, {
-  //       userEmail: userProfile?.email,
-  //       name: userProfile?.name
-  //     })
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  // useEffect(() => {
-  //   emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
-  // }, [])
 
   /** handle products array update */
   useEffect(() => {
@@ -148,10 +130,7 @@ const CheckoutDetails = () => {
 
   if (isUserLoading) {
     return (
-      <main className="min-h-screen flex justify-center items-center">
-        <Loader2 size={100} className="text-theme-700 font-extrabold" />
-        <p className="text-theme-700">Loading...</p>
-      </main>
+      <Loader />
     );
   }
 
@@ -163,7 +142,7 @@ const CheckoutDetails = () => {
     <div className="checkout-details">
       {isPlacingOrder && (
         <div className="z-30 fixed left-0 right-0 top-0 bottom-0 w-full h-full flex justify-center items-center gap-4 bg-gray-800  backdrop-filter backdrop-blur-sm bg-opacity-10 px-4">
-          <Loader size={100} className="text-theme-500 animate-spin" />
+          <Loader2 size={100} className="text-theme-500 animate-spin" />
           <p className="font-bold text-sm sm:text-xl text-theme-700">
             Your order is being placed!
           </p>

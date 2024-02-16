@@ -335,7 +335,23 @@ footer {
         }
 
         .product-description {
-            @apply py-2;
+            @apply py-2 hidden sm:block;
+
+            p {
+                @apply text-sm font-mono;
+            }
+
+            ul {
+                @apply py-2 px-6;
+
+                li {
+                    @apply text-sm font-mono list-disc;
+                }
+            }
+        }
+
+        .mobile-description {
+            @apply py-2 text-gray-700;
 
             p {
                 @apply text-sm font-mono;
