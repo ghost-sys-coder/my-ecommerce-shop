@@ -19,15 +19,15 @@ const ProductDescription = ({ description }) => {
       />
       <div className="sm:hidden flex flex-col gap-3 my-4">
         <div
-          className="flex justify-between items-center h-[50px] px-2 border border-gray-200 rounded-md
+          className="flex justify-between items-center h-[50px] px-2 border border-gray-200 rounded-md bg-theme-500 text-white
         "
           onClick={handleMobileDescDisplay}
         >
-          <p className="font-semibold text-gray-700">Product Description</p>
+          <h1 className="font-thin text-xl">Product Description</h1>
           {controlChevron ? (
-            <ChevronUp className="font-semibold text-gray-700 text-xl" />
+            <ChevronUp className="font-semibold text-xl" />
           ) : (
-            <ChevronDown className="font-semibold text-gray-700 text-xl" />
+            <ChevronDown className="font-semibold text-xl" />
           )}
         </div>
         {showDescription && (
